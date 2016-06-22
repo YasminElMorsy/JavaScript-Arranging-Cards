@@ -1,0 +1,171 @@
+<html>
+<head>
+	<title>Game</title>
+	<script>
+		var imgarr=["game/1.jpg","game/2.jpg","game/3.jpg","game/4.jpg","game/5.jpg","game/6.jpg","game/7.jpg","game/8.jpg","game/1.jpg","game/2.jpg","game/3.jpg","game/4.jpg","game/5.jpg","game/6.jpg","game/7.jpg","game/8.jpg"];
+		var arr2=[];
+		var j=0,i,x;
+		var findex=-1;
+		var sindex=-1;
+		var matches=0;
+		var started=false;
+		var startDate;
+		var endDate;
+		//generate random array
+		while(arr2.length!=16)
+			{
+				x=Math.floor(Math.random()*16);
+			for (i=0;i<imgarr.length;i++) {
+			 	if (x==i)
+					{
+						arr2[j]=imgarr[i];
+						imgarr.splice(i,1);
+						j++;
+					}
+				}
+			}
+			//hide images After 2 seconds
+		function hideAll(){
+			for( i=0;i<arr2.length;i++){
+				document.images[i].src="game/0.jpg";	
+				}
+			}
+		function hideTwo()
+		{
+			document.images[findex].src="game/0.jpg";
+			document.images[sindex].src="game/0.jpg";
+			findex=sindex=-1;
+			
+		}
+
+
+
+		//show images when clicked
+		function flip(index)
+		{
+			if(started)
+			{
+				if(document.images[index].src.indexOf("game/0.jpg")!=-1)
+			{
+				if(findex==-1)
+				{
+					document.images[index].src=arr2[index];
+					findex=index;	
+				}
+				else
+				{
+					document.images[index].src=arr2[index];
+					sindex=index;
+					if(document.images[findex].src==document.images[sindex].src)
+					{
+						findex=sindex=-1;
+						matches++;
+						if (matches==8) 
+						{
+							endDate = new Date();
+							var t = endDate - startDate;
+							alert("congrats You Finished in " + t/1000 + "Seconds");
+						}
+					}
+					else
+					{
+						setTimeout("hideTwo()",500);
+					}
+				}
+			}
+			else
+			{
+				alert("you clicked");
+			}
+		}
+			else 
+			{
+				alert("plz press start ^_^");
+			}
+			
+		}
+
+		//onload function
+		onload = function(){
+			
+		var startBtn= document.getElementById("id1");
+		//start game button actions
+		startBtn.onclick=function()
+			{
+			for( i=0;i<arr2.length;i++){
+				document.images[i].src=arr2[i];	
+				}
+				setTimeout("hideAll()",2000);
+				started=true;	
+				startDate = new Date();	
+			}
+
+	}	
+		
+	</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(0)" />	
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(1)" />	
+
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(2)" />				
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(3)" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(4)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(5)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(6)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(7)"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(8)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(9)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(10)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(11)" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(12)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(13)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(14)" />
+			</td>
+			<td>
+				<img src="game/0.jpg" width="100" height="100" onclick="flip(15)" />
+			</td>
+		</tr>
+	</table>
+	<hr/>
+	<input type="button" value="startGame" id="id1"/>
+	
+</body>
+</html>
